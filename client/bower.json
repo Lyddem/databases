@@ -1,0 +1,24 @@
+{
+  "name": "chatterbox-client",
+  "homepage": "https://github.com/AtreidesEnd/hrr26-chatterbox-server",
+  "authors": [
+    "Jared Meek <jmeek13@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "UNLICENSED",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "underscore": "^1.8.3",
+    "jquery": "~2.1.1",
+    "jquery-timeago": "timeago#^1.6.1"
+  }
+}

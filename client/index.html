@@ -1,0 +1,86 @@
+<!doctype html> 
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>chatterbox</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery-timeago/jquery.timeago.js" type="text/javascript"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="env/config.js"></script>
+    <script defer src="scripts/app.js"></script>
+    <script defer src="scripts/serverUpdate.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script defer>
+      // YOU DO NOT NEED TO EDIT THIS CODE
+      if (!/(&|\?)username=/.test(window.location.search)) {
+        var newSearch = window.location.search;
+        if (newSearch !== '' & newSearch !== '?') {
+          newSearch += '&';
+        }
+        newSearch += 'username=' + (prompt('What is your name?') || 'anonymous');
+        window.location.search = newSearch;
+        app.renderUsername();
+      }
+    </script>
+  </head>
+  <body>
+    <div class="jumbotron card">
+      <h1>Chatterbox</h1>
+      <p>Welcome to the world's loudest community!</p>
+    </div>
+
+    <div id="main" class="container">
+      <div class="ch-left-side-interface">
+        <div class="ch-username card rounded-top">
+          <div class="ch-interface-header rounded-top">User Profile</div>
+          <div id="username-mount" class="ch-username-div">
+          </div>
+        </div>
+        <div class="ch-room card rounded-top">
+          <div class="ch-interface-header rounded-top">Chatrooms</div>
+          <div class="ch-room-list">
+          </div>
+          <div class="ch-new-room">
+            <form id="new-room" class="form-group form-inline ch-new-room-form">
+              <input type="text" name="new-room" id="new-room-name" class="ch-new-room-text form-control ch-input-with-button" placeholder="Don't see your room?"/>
+              <button type="submit" name="new-room-submit" class="submit btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+        <div class="ch-friends-container rounded-top card">
+          <div class="ch-interface-header rounded-top">Friends</div>
+          <div class="ch-friends-list-container">
+            <ul id="ch-friends-list" class="ch-friends-list list-group">
+            </ul>
+            <div class="ch-friends-caption">Click a friend again to unfollow</div>
+          </div>
+          <div class="ch-new-friend">
+            <form id="new-friend" class="ch-new-friend-form form-group form-inline justify-content-around">
+              <input type="text" name="new-friend" id="new-friend-name" class="ch-new-friend-text form-control ch-input-with-button" placeholder="Add a friend here"/>
+              <button type="submit" name="new-friend-submit" class="submit btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="ch-main-column">
+        <div class="ch-message-form-container card">
+          <form id="send" method="post" class="ch-message-form form-group">
+            <textarea name="message" id="message" form="send" rows=1 maxlength=144 class="ch-input-textarea form-control" placeholder="Let the world know what you're thinking"></textarea>
+            <div class="form-inline">
+              <select class="form-control ch-message-form-room-select ch-input-with-button" id="send-room-select">
+              </select>
+              <button type="submit" name="submit" class="submit btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <div id="chats" class="ch-message-container">
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,280 @@
+/* colors */ 
+:root {
+  --color1:#B4CFEF;
+  --color2:#82ABDB;
+  --color3:#5B8BC3;
+  --color4:#3C6EA9;
+  --color5:#235899;
+}
+
+/*Header section*/
+.jumbotron {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: var(--color4) !important;
+  margin: 0 auto .5em  auto !important;
+  padding: 10px 0 5px 0 !important;
+  background: linear-gradient(white,var(--color1));
+  border-bottom: 1px solid var(--color1) !important;
+  border-radius: 0 !important;
+}
+
+.jumbotron * {
+  text-align: left;
+  font-size: 4em;
+  margin: 0;
+}
+
+.jumbotron p {
+  font-size: 1em;
+  padding-left: 20px;
+}
+
+/* left-side interface structure */
+
+.ch-left-side-interface {
+  flex: 0 0 300px;
+  margin-right: 10px;
+}
+
+.ch-left-side-interface > .card {
+  margin-bottom: 20px;
+}
+
+.ch-interface-header {
+  font-size: 1.3em;
+  background-color: var(--color4);
+  color: white;
+  text-align: left;
+  padding: 5px 10px;
+}
+
+.ch-user-list-item,
+.ch-room-list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* username interface  */
+.ch-username-display {
+  font-weight: bold;
+  font-style: italic;
+  color: var(--color5);
+}
+
+.ch-user-list-item .material-icons {
+  font-size: 1.2em;
+  color: grey;
+  visibility: hidden;
+  cursor: pointer;
+}
+
+.ch-user-list-item:hover .material-icons {
+  visibility: visible;
+}
+
+/* room list interface */
+
+.ch-room-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ch-room-list label {
+  text-align: left;
+}
+
+.ch-room-list-item {
+  color: var(--color5);
+  padding: .2em .5em .2em 1.5em !important;
+  cursor: pointer;
+  border-radius: 0 !important;
+}
+
+.ch-room-list-all {
+  padding-left: .7em !important;
+}
+
+.ch-room-icon {
+  font-size: 1.2em !important;
+}
+
+.ch-room-unchecked {
+  color: grey;
+  font-weight: light;
+}
+
+/* friends interface */
+
+.ch-friends-list-container {
+  margin-bottom: 10px;
+}
+
+.ch-friends-list-container * {
+  color: var(--color5);
+}
+
+.ch-no-friends {
+  font-size: .9em;
+  font-style: italic;
+  text-align: center;
+  border: none;
+  padding-bottom: 0;
+}
+
+.ch-friends-caption {
+  margin-top: 5px;
+  font-size: .8em;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.ch-friend-list-item {
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1em;
+  cursor: pointer;
+  padding: .5em 1.25em !important;
+  border-radius: 0 !important;
+  word-break: break-word;
+  text-align: left;
+  border-left: none;
+  border-right: none;
+}
+
+.ch-friend-list-item:hover,
+.ch-room-list-item:hover {
+  background-color: var(--color1);
+}
+
+.ch-new-friend-form, .ch-new-room-form {
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+/* main container  */
+
+.container {
+  width: 70% !important;
+  display: flex;
+}
+
+.ch-main-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* new message section    */
+.ch-message-form-container {
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: var(--color1);
+}
+
+.ch-message-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+}
+
+.ch-input-textarea {
+  margin-bottom: 10px;
+  min-height: 38px;
+  resize: none;
+}
+
+.ch-message-form-room-select {
+  flex: 1 0 auto;
+}
+
+/* message display section */
+
+.ch-message {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.ch-message-header {
+  padding: 5px;
+  min-width: 150px;
+  max-width: 200px;
+  flex-basis: auto;
+  margin-right: 10px;
+  border-right: 1px dotted lightgrey;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.ch-message-user {
+  margin: 0 10px 0 5px;
+  text-align: left;
+  font-size: 1.2em;
+  color: var(--color5);
+  cursor: pointer;
+  word-break: break-word;
+}
+
+.ch-message-user-friend {
+  background-color: lightyellow;
+  border: 1px solid var(--color5);
+}
+
+.ch-message-roomname {
+  display: flex;
+  align-items: center;
+  color: var(--color5);
+  font-weight: 400 !important;
+  margin-left: 4px;
+  font-size: .8em;
+}
+
+.ch-message-roomname i {
+  font-size: 1.5em;
+  margin-right: 5px;
+}
+
+.ch-message-timestamp {
+  margin: 0 10px;
+  font-weight: 200;
+  font-size: .8em;
+  font-style: italic;
+}
+
+.ch-message-content {
+  padding: 5px 0;
+  flex: 1;
+  text-align: left;
+  word-break: break-word;
+}
+
+/* utilities */
+
+.ch-input-with-button {
+  flex: 1;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btn {
+  background-color: var(--color4);
+  cursor: pointer;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.card {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),
+   0 3px 1px -2px rgba(0,0,0,0.12),
+   0 1px 5px 0 rgba(0,0,0,0.2) !important;
+   border: 0;
+}
