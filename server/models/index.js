@@ -2,14 +2,73 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function () {}, // a function which produces all the messages
-    post: function () {} // a function which can be used to insert a message into the database
+    get: function (req, res) {
+      db.query('select * from messages', (err, rows) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('rows', rows);
+          res.status(200).json(rows);
+        }
+      });
+    },
+    post: function (msg, resp) {
+      try {
+        db.query('INSERT IGNORE INTO Users(username) VALUES(?)', [msg.username], (err, res) => {
+          if (err) {
+            throw err;
+          } else {
+            db.query('INSERT IGNORE INTO Rooms(roomname) VALUES(?)', [msg.roomname], (err, res) => {
+              if (err) {
+                throw err;
+              } else {
+                console.log(msg);
+                db.query(`INSERT INTO Messages
+                  VALUES(?,
+                  (SELECT id FROM Users WHERE username = ?),
+                  (SELECT id FROM Rooms WHERE roomname = ?))`, [msg.text, msg.username, msg.roomname], (err, res) => {
+                    if (err) {
+                      throw err;
+                    } else {
+                      resp.status(201).send('message created');
+                    }
+                  });
+              }
+            });
+          }
+        });
+      } catch (e) {
+        resp.status(500).send('Server error!');
+        console.log(e);
+      }
+    } // a function which can be used to insert a message into the database
   },
 
   users: {
     // Ditto as above.
-    get: function () {},
-    post: function () {}
+    get: function () {
+      db.query('select * from users', (err, rows) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('rows', rows);
+          res.status(200).json(rows);
+        }
+      });
+    },
+    post: function (body, resp) {
+      try {
+        db.query('INSERT INTO Users(username) VALUES(?)', [body.username], (err, res) => {
+          if (err) {
+            throw err;
+          } else {
+            resp.status(201).send('user created');
+          }
+        });
+      } catch (e) {
+        resp.status(500).send('Server error');
+        console.log(err);
+      }
+    }
   }
 };
-

@@ -11,6 +11,12 @@ var router = require('./routes.js');
 var app = express();
 module.exports.app = app;
 
+// database
+// db.query('select * from messages', (err, rows, fields) => {
+//   console.log('rows: ', rows);
+//   console.log('fields: ', fields);
+// });
+
 // Set what we are listening on.
 app.set('port', 3000);
 
@@ -29,4 +35,3 @@ if (!module.parent) {
   app.listen(app.get('port'));
   console.log('Listening on', app.get('port'));
 }
-

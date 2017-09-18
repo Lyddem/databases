@@ -11,7 +11,7 @@ var app = {
 // App initialization
 app.init = function() {
   this.user = location.search.substring(location.search.search('username=') + 'username='.length);
-  this.rooms['lobby'] = true; // initialize lobby as default chatroom
+  this.rooms['lobby'] = true; // initialize lobby as t chatroom
   this.updateRoomContainer();
 
   // attach submit handlers to main structural elements
