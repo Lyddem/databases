@@ -1,4 +1,4 @@
-var db = require('../db');
+var db = require('../db/db.js');
 
 var getFilter = function(query) {
   let resQuery = '';
@@ -8,7 +8,7 @@ var getFilter = function(query) {
   }
   resQuery += ' ORDER BY createdAt DESC';
   return resQuery;
-}
+};
 
 module.exports = {
   messages: {
@@ -23,7 +23,7 @@ module.exports = {
                 FROM Messages m
                 INNER JOIN Users u on m.user_id = u.id
                 INNER JOIN Rooms r on m.room_id = r.id
-                ${filter} LIMIT ?`, queryArgs,(err, rows) => {
+                ${filter} LIMIT ?`, queryArgs, (err, rows) => {
         if (err) {
           console.log(err);
         } else {

@@ -1,5 +1,4 @@
 var express = require('express');
-var db = require('./db');
 
 // Middleware
 var morgan = require('morgan');
@@ -10,12 +9,6 @@ var router = require('./routes.js');
 
 var app = express();
 module.exports.app = app;
-
-// database
-// db.query('select * from messages', (err, rows, fields) => {
-//   console.log('rows: ', rows);
-//   console.log('fields: ', fields);
-// });
 
 // Set what we are listening on.
 app.set('port', 3000);

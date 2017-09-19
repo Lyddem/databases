@@ -2,43 +2,26 @@ DROP DATABASE chat;
 CREATE DATABASE IF NOT EXISTS chat;
 
 USE chat;
--- ---
--- Globals
--- ---
-
--- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
--- SET FOREIGN_KEY_CHECKS=0;
-
--- ---
--- Table 'users'
---
--- ---
 
 DROP TABLE IF EXISTS `Users`;
 CREATE TABLE `Users` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `username` CHAR(50) NULL DEFAULT NULL,
+  `username` VARCHAR(255) NULL DEFAULT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE(`username`)
 );
 
--- ---
--- Table 'rooms'
---
--- ---
-
 DROP TABLE IF EXISTS `Rooms`;
 CREATE TABLE `Rooms` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `roomname` CHAR(50) NULL DEFAULT NULL,
+  `roomname` VARCHAR(255) NULL DEFAULT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE(`roomname`)
 );
-
--- ---
--- Table 'messages'
---
--- ---
 
 DROP TABLE IF EXISTS `Messages`;
 CREATE TABLE `Messages` (
@@ -52,11 +35,6 @@ CREATE TABLE `Messages` (
   FOREIGN KEY (user_id) REFERENCES Users(id),
   FOREIGN KEY (room_id) REFERENCES Rooms(id)
 );
-
-
-/*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
- *  to create the database and the tables.*/
 
 INSERT INTO Users(username) VALUES('bob'),('jim'),('sue');
 INSERT INTO Rooms(roomname) VALUES('4chan'),('lobby'),('hobbylobby');
