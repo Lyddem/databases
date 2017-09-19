@@ -3,11 +3,13 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (req, res) {
-      db.query('select * from messages', (err, rows) => {
+      db.query(`SELECT m.text, u.username, r.roomname, m.created_at, m.updated_at
+                FROM Messages m
+                INNER JOIN Users u on m.user_id = u.id
+                INNER JOIN Rooms r on m.room_id = r.id;`, (err, rows) => {
         if (err) {
           console.log(err);
         } else {
-          console.log('rows', rows);
           res.status(200).json(rows);
         }
       });
