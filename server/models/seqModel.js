@@ -39,19 +39,23 @@ module.exports = {
             });
         })
         .then(() => {
-          resp.status(201).send('message created');
-        })
-        .catch(resp.status(500).send('server error'));
+          resp.status(201).send('Message created');
+        }).catch((err) => resp.status(500).send('Error: ' + err));
     }
   },
 
   users: {
-    // Ditto as above.
-    get: function () {
-
+    get: function (req, res) {
+      Users.sync()
+        .then(() => Users.findAll())
+        .then((rows) => resp.status(200).json(rows))
+        .catch(err => resp.status(500).send('Error: ' + err));
     },
     post: function (body, resp) {
-
+      Users.sync()
+        .then(() => Users.findOrCreate({where: {username: req.body.username}}))
+        .then(() => resp.status(201).send('User created'))
+        .catch(err => resp.status(500).send('Error: ' + err));
     }
   }
 };
