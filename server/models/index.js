@@ -1,19 +1,37 @@
 var db = require('../db');
 
+var getFilter = function(query) {
+  let resQuery = '';
+  if (query.where ) {
+    const filters = JSON.parse(query.where).$or.map(con => `(${Object.keys(con)[0]} = '${con[Object.keys(con)[0]]}')`);
+    resQuery += 'WHERE ' + filters.join(' OR ');
+  }
+  resQuery += ' ORDER BY createdAt DESC';
+  return resQuery;
+}
+
 module.exports = {
   messages: {
     get: function (req, res) {
-      db.query(`SELECT m.text, u.username, r.roomname, m.created_at, m.updated_at
+      let queryArgs = [];
+      let max = Math.floor(req.query.maxResults);
+      let limit = (!isNaN(max) && max < 200) ? max : 100;
+      queryArgs.push(limit);
+      let filter = getFilter(req.query);
+
+      db.query(`SELECT m.text, u.username as username, r.roomname as roomname, m.created_at as createdAt, m.updated_at as updatedAt
                 FROM Messages m
                 INNER JOIN Users u on m.user_id = u.id
-                INNER JOIN Rooms r on m.room_id = r.id;`, (err, rows) => {
+                INNER JOIN Rooms r on m.room_id = r.id
+                ${filter} LIMIT ?`, queryArgs,(err, rows) => {
         if (err) {
           console.log(err);
         } else {
-          res.status(200).json(rows);
+          res.status(200).json({results: rows});
         }
       });
     },
+
     post: function (msg, resp) {
       try {
         db.query('INSERT IGNORE INTO Users(username) VALUES(?)', [msg.username], (err, res) => {

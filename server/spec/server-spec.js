@@ -75,12 +75,56 @@ describe('Persistent Node Chat Server', function() {
         // Now query the Node chat server and see if it returns
         // the message we just inserted:
         request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
-          var messageLog = JSON.parse(body);
+          var messageLog = JSON.parse(body).results;
           expect(messageLog[0].text).to.equal('Men like you can never change!');
           expect(messageLog[0].roomname).to.equal('Hello');
           done();
         });
       });
+    });
+  });
+
+  it('Should return messages in -createdAt order', function(done) {
+    // Let's insert a message into the db
+    var queryString = 'SELECT * FROM Messages';
+    var queryArgs = [];
+    request({
+      method: 'POST', uri: 'http://127.0.0.1:3000/classes/messages',
+      json: { username: 'Javert', text: 'Men like you can never change!', roomname: 'Hello'}}, () => {
+      setTimeout(() => {
+        request({
+          method: 'POST', uri: 'http://127.0.0.1:3000/classes/messages',
+          json: { username: 'Valjean', text: 'Wait! look behind you!', roomname: 'Hello'}}, () => {
+          request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
+            var messageLog = JSON.parse(body).results;
+            expect(Date.parse(messageLog[0].createdAt)).to.be.above(Date.parse(messageLog[1].createdAt));
+            done();
+          });
+        });
+      }, 1000);
+    });
+  });
+
+  it('Should support room filters', function(done) {
+    // Let's insert a message into the db
+    var queryString = 'SELECT * FROM Messages';
+    var queryArgs = [];
+    request({
+      method: 'POST', uri: 'http://127.0.0.1:3000/classes/messages',
+      json: { username: 'Javert', text: 'Men like you can never change!', roomname: 'lobby'}}, () => {
+      setTimeout(() => {
+        request({
+          method: 'POST', uri: 'http://127.0.0.1:3000/classes/messages',
+          json: { username: 'Valjean', text: 'Wait! look behind you!', roomname: 'france'}}, () => {
+          request('http://127.0.0.1:3000/classes/messages?where=%7B%22$or%22:%5B%7B%22roomname%22:%22lobby%22%7D%5D%7D&order=-createdAt',
+            function(error, response, body) {
+              var messageLog = JSON.parse(body).results;
+              expect(messageLog.length).to.equal(1);
+              expect(messageLog[0].roomname).to.equal('lobby');
+              done();
+            });
+        });
+      }, 1000);
     });
   });
 });

@@ -1,6 +1,6 @@
 var app = {
   user: '',
-  server: 'http://127.0.0.1:3001/classes/messages',
+  server: 'http://localhost:3000/classes/messages',
   messages: [],
   rooms: {},
   localRooms: {},
@@ -80,7 +80,6 @@ app._fetch = function() {
 app.fetch = _.debounce(function() { this._fetch(); }, 500);
 
 app.fetchSuccess = function(data) {
-  console.log(data);
   this.updateMessageContainer(data); // only redraw rooms if they changed
   if (this.updateRoomObject()) { this.updateRoomContainer(); }
 };

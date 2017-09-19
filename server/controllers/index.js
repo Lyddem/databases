@@ -4,6 +4,7 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (req, res) {
+      console.log('messages GET request received');
       models.messages.get(req, res);
     }, // a function which handles a get request for all messages
     post: function (req, res) { // a function which handles posting a message to the database
@@ -15,6 +16,7 @@ module.exports = {
   users: {
     // Ditto as above
     get: function (req, res) {
+      console.log('users get request received');
       models.users.get(req, res);
     },
     post: function (req, res) {
