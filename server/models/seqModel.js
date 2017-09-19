@@ -21,7 +21,27 @@ module.exports = {
     },
 
     post: function (msg, resp) {
-
+      var userId;
+      var roomId;
+      Users.sync()
+        .then(() => Users.findOrCreate({where: {username: msg.username}}))
+        .then((user) => {
+          userId = user[0].id;
+          return Rooms.findOrCreate({where: {roomname: msg.roomname}});
+        })
+        .then((room) => {
+          roomId = room[0].id;
+          return Messages.create(
+            {
+              text: msg.text,
+              'user_id': userId,
+              'room_id': roomId,
+            });
+        })
+        .then(() => {
+          resp.status(201).send('message created');
+        })
+        .catch(resp.status(500).send('server error'));
     }
   },
 
