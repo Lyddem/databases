@@ -1,4 +1,4 @@
-/* Install node-mongodb-native by doing:
+  /* Install node-mongodb-native by doing:
  *  npm install mongodb
  * See documentation at https://github.com/mongodb/node-mongodb-native
  * Run this command in the terminal to launch mongo server:

@@ -1,5 +1,6 @@
 // var models = require('../models/dbModel.js');
-var models = require('../models/seqModel.js');
+// var models = require('../models/seqModel.js');
+var models = require('../models/mgModel.js');
 
 module.exports = {
   messages: {
